@@ -3,13 +3,6 @@
 </svelte:head>
 
 <script lang="ts">
-    import { onMount } from 'svelte';
-    let currentTime:any;
-    onMount(function clock() {
-        currentTime = new Date();
-        setInterval(function() { clock(); }, 1000);
-    }) 
-
     const eelLoaded = () => {
         console.log("eel loaded");
         const eel = window.eel
@@ -27,11 +20,6 @@
 </script>
 
 <style lang="scss">
-    #clock {
-        font-size: small;
-    }
 </style>
 
-<div class="clockWrapper">
-    <span id="clock">{currentTime}</span>
-</div>
+<slot />
