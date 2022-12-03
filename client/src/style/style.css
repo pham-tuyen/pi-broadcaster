@@ -1,0 +1,9 @@
+/*splash.html*/
+@keyframes run {
+    0% {width: 0%}
+    100% {width: 100%;}
+}
+#progress {
+    animation: run 2s forwards;
+}
+

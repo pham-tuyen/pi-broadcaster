@@ -1,1 +1,3 @@
 eel
+youtube_dl
+requests

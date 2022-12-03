@@ -1,11 +1,31 @@
 const {app, BrowserWindow} = require('electron')
+const path = require('path')
 
 const createWindow = () => {
-    const window = new BrowserWindow()
-    window.loadFile("./src/index.html")
-    window.setTitle('Bảng điều khiển')
-    window.setIcon('./static/pi.png')
-    window.maximize()
+    const window = new BrowserWindow({
+        autoHideMenuBar: true,
+        show: false
+    })
+    window.loadURL("http://localhost:8000/index.html")
+
+    var splash = new BrowserWindow({ 
+        width: 500, 
+        height: 300, 
+        transparent: true, 
+        frame: false, 
+        alwaysOnTop: true 
+    });
+    
+    splash.loadURL('http://localhost:8000/splash.html');
+        splash.center();
+        setTimeout(function () {
+            splash.close();
+            window.center();
+            window.show();
+            window.setTitle('Bảng điều khiển')
+            window.setIcon(path.join(__dirname, '/src/static/pi.png'))
+            window.maximize()
+        }, 3000);
 }
 
 app.whenReady().then(() => {

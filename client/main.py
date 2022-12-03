@@ -1,9 +1,8 @@
 import eel, sys
 
-@eel.expose
-def quit():
-    sys.exit()
-
 eel.init('src')
+
+#expose Python API
+
 
 eel.start('index.html', mode='electron')

@@ -1,3 +1,0 @@
-const quit = () => {
-    eel.quit()
-}
