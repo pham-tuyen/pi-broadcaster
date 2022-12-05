@@ -8,43 +8,47 @@ config = json.loads(config)
 f.close()
 
 for i in range(0, len(config)):
-    os.mkdir(config[i]["dir"])
+    if not os.path.isdir(config[i]["dir"]):
+        os.mkdir(config[i]["dir"])
 
+api = "https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&key=AIzaSyD9SzNDbCbjGG_S-3bVVHWHMjMq1qmfV9A&playlistId="
 data = []
 for i in range(0, len(config)):
-    data.append(json.loads(requests.get(config[i]["link"]).text))
+    data.append(json.loads(requests.get(api + config[i]["id"]).text))
 
-index = []
-for i in range(0, len(config)):
-    index.append(len(os.listdir(config[i]["dir"])))
-
-def download(id, name):
+def download(id, name, dir):
     ytdl_opts = {
-        'outtmpl': name + ".mp4"
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+        'outtmpl': "/" + dir + "/" + name + ".%(ext)s"
     }
     try:
         with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
             ydl.download(["https://youtube.com/watch?v=" + id])
     except:
         pass
-    os.system("ffmpeg -i " + name + ".mp4 " + name + ".mp3")
     if platform.system() == 'Windows':
-        os.system("del " + name + ".mp4")
+        os.system("del " + dir + "/" + name + ".%(ext)s")
     else:
-        os.system("rm " + name + ".mp4")
-    os.system("7z a " + name + ".zip " + name + ".mp3")
+        os.system("rm " + dir + "/" + name + ".%(ext)s")
+    os.system("7z a " + dir + "/" + name + ".zip " + dir + "/" + name + ".mp3")
     if platform.system() == 'Windows':
-        os.system("del " + name + ".mp3")
+        os.system("del " + dir + "/" + name + ".mp3")
     else:
-        os.system("rm " + name + ".mp3")
+        os.system("rm " + dir + "/" + name + ".mp3")
     
 while True:
     for i in range(0, len(config)):
         now = datetime.now()
         if now.hour * 3600 + now.minute * 60 + now.second <= config[i]["time"] * 3600:
             while True:
-                download(data[i]["items"][index]["snippet"]["resourceId"]["videoId"])
+                download(data[i]["items"][len(os.listdir(config[i]["dir"]))]["snippet"]["resourceId"]["videoId"], str(len(os.listdir(config[i]["dir"]))), config[i]["dir"])
                 now = datetime.now()
                 if data[i]["nextPageToken"] == "" or now.hour * 3600 + now.minute * 60 + now.second >= config[i]["time"] * 3600:
                     break
-                                   
+                data[i] = json.loads(requests.get(api + config[i]["id"] + "&pageToken=" + data[i]["nextPageToken"]).text)
+            

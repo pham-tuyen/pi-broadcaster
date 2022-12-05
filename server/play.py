@@ -9,14 +9,14 @@ f.close()
 
 index = []
 for i in range(0, len(config)):
-    index.append(1)
+    index.append(0)
 
 while True:
     for i in range(0, len(config)):
         now = datetime.now()
         if now.hour * 3600 + now.minute * 60 + now.second <= config[i]["time"] * 3600:
             time.sleep(config[i]["time"] * 3600 - (now.hour * 3600 + now.minute * 60 + now.second))
-            file = "\"" + os.listdir(config[i]["dir"])[len(os.listdir(config[i]["dir"])) - index[i]] + "\""
+            file = "\"" + os.listdir(config[i]["dir"])[index[i]] + "\""
             os.chdir(config[i]["dir"])
             os.system("7z e " + file) 
             file = file.replace("zip", "mp3")

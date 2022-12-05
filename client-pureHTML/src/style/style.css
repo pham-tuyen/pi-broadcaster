@@ -6,4 +6,7 @@
 #progress {
     animation: run 2s forwards;
 }
-
+/*index.html*/
+.vr {
+    height: 90vh ;
+}

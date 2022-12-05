@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
+        <link rel="stylesheet" href="/style/style.css">
+        <link rel="stylesheet" href="/style/bootstrap.min.css">
+        <script type="text/javascript" src="/script/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="/eel.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid bg-black text-white fixed-top position-relative" id="clockpanel" >
+            <p id="clock"></p>
+        </div>
+
+        <div class="container-fluid row" id="panel">
+
+            <div class="col-sm-1">
+                <div class="float-start">
+                    <button id="add">Thêm</button><br>
+                    <button class="mt-2" id="submit">Lưu</button>
+                </div>
+            </div>
+
+            <div class="col-sm-11">
+                <table class="table" id="config">
+                    <tr>
+                        <td><h4>Nguồn</h4></td>
+                        <td><h4>Thời gian</h4></td>
+                        <td><h4>Hành động</h4></td>
+                    </tr>
+                    <tr class="data">
+                        <td class="input">
+                            <input type="url" class="url" placeholder="Nhập liên kết YouTube"></input>
+                        </td>
+                        <td>
+                            <input type="time" class="time" placeholder="Nhập giờ">   
+                        </td>
+                        <td>
+                            <button class="toggle">Sử dụng file cục bộ</button>
+                            <button class="del">Xoá</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <script type="text/javascript" src="/script/script.js"></script>
+    </body>
+</html>
