@@ -1,3 +1,0 @@
-eel
-pytube
-requests
