@@ -1,5 +1,16 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
+const url_request = require('require-from-url/sync')
+var err, eel;
+while(err != null) {
+    try {
+        eel = url_request("http://localhost:8000/eel.js")
+    }
+    catch(err) {
+
+    }
+}
+
 
 const createWindow = () => {
     const window = new BrowserWindow({
@@ -23,7 +34,7 @@ const createWindow = () => {
             window.center();
             window.show();
             window.setTitle('Bảng điều khiển')
-            window.setIcon(path.join(__dirname, '/src/static/pi.png'))
+            window.setIcon(path.join(__dirname, '/public/static/pi.png'))
             window.maximize()
         }, 3000);
 }
