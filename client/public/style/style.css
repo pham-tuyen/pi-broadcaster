@@ -4,7 +4,7 @@
     100% {width: 100%;}
 }
 #progress {
-    animation: run 2s forwards;
+    animation: run 3s forwards;
 }
 /*index.html*/
 .vr {

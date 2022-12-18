@@ -29,7 +29,7 @@
         <Clock />
     </div>
     <div class="titleWrapper">
-        <img src="/pi.png" alt="logo" class="titleLogo">
+        <img src="/static/pi.png" alt="logo" class="titleLogo">
         <h1 class="titleText">Bảng điều khiển</h1>
     </div>
     <div class="panelWrapper">
