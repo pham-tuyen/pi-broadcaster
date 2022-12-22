@@ -5,9 +5,8 @@
   "main": "main.js",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public --no-clear",
-    "test": "electron ."
+    "dev": "rollup -c -w ",
+    "start": "sirv public --no-clear"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

@@ -1,13 +1,8 @@
-import eel, os, time, threading
+import eel, paramiko
 
-def finish():
-    time.sleep(5)
-    os.system("taskkill /im node.exe /F")
-
-compile = threading.Thread(target=os.system, args=("npm run dev", ))
-compile.start()
-finish()
-compile.join()
+ssh = paramiko.SSHClient()
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+ssh.connect("192.168.2.100", username="root", password="123456")
 
 eel.init("public")
 
@@ -15,11 +10,7 @@ eel.init("public")
 def send():
     pass
 
-def close_callback(route, websockets):
-    if not websockets:
-        exit()
-
-eel.start("index.html", mode='electron', close_callback=close_callback)
+eel.start("index.html", mode='electron')
 
 
 
