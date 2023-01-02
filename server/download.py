@@ -1,5 +1,4 @@
-import re, os, json
-from pytube import Playlist
+import os, json
 from datetime import datetime
 
 f = open(".config", "r")
@@ -12,22 +11,28 @@ for i in range(0, len(config)):
         os.mkdir(config[i]["dir"])
     os.chdir(config[i]["dir"])
     for item in os.listdir("."):
-        if item.endswith(".mp3") or item.endswith(".mp4"):
+        if item.endswith(".mp3") or item.endswith(".webm") or item.endswith(".part"):
             os.remove(item)
     os.chdir("..")
 
 while True:
     for index in range(0, len(config)):
-        playlist = Playlist(config[index]["url"])
-        playlist._video_regex = re.compile(r"\"url\":\"(/watch\?v=[\w-]*)")
-        for i in range(len(os.listdir(config[index]["dir"])), len(playlist.videos)):
-            audioStream = playlist.videos[i].streams.get_by_itag("140")
-            audioStream.download(output_path=config[index]["dir"], filename=str(i) + ".mp4")
-            os.chdir(config[index]["dir"])  
-            os.system("ffmpeg -i " + str(i) + ".mp4 " + str(i) + ".mp3")
-            os.remove(str(i) + ".mp4")
-            os.system("7z a " + str(i) + ".zip " + str(i) + ".mp3")
-            os.remove(str(i) + ".mp3")
-            os.chdir("..")
-            if datetime.now().hour * 3600 + datetime.now().minute * 60 + datetime.now().second >= config[index]["time"] * 3600:
-                break
+        if datetime.now().weekday() in config[index]["day"] and 0 == os.system('ping finxter.com -w 4 > clear'):
+            playlist = os.popen("youtube-dl -j --flat-playlist " + config[index]["id"]).read()
+            data = json.loads("[" +  playlist.replace("\n", ",")[0:len(playlist.replace("\n", ",")) - 1] + "]")
+            for i in range(len(os.listdir(config[index]["dir"])), len(data)):
+                command = "youtube-dl -i --extract-audio --audio-format mp3 -o \"" + config[index]["dir"] + "/" + str(len(os.listdir(config[index]["dir"]))) + ".%(ext)s\" https://youtube.com/watch?v=" + data[i]["id"]
+                print(command)
+                os.system(command)
+                os.chdir(config[index]["dir"])  
+                try:
+                    os.system("zip " + str(i) + ".zip " + str(i) + ".mp3")
+                    os.remove(str(i) + ".mp3")
+                except:
+                    pass
+                os.chdir("..")
+                if datetime.now().hour * 3600 + datetime.now().minute * 60 + datetime.now().second >= config[index]["time"] * 3600:
+                    break
+
+
+      

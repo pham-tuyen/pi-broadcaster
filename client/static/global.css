@@ -1,0 +1,33 @@
+:root {
+    --bg: #333333;
+    --cmp: #333333;
+    --en: none;
+    --vi: initial;
+}
+html[theme='light'] {
+    --bg: #ffffff;
+    --cmp: #333333;
+}
+html[theme='dark'] {
+    --bg: #333333;
+    --cmp: #ffffff;
+}
+html[lang='en'] {
+    --en: initial;
+    --vi: none;
+}
+html[lang='vi'] {
+    --vi: initial;
+    --en: none;
+}
+html {
+    margin: 0 0 0 0;
+    background-color: var(--bg);
+    transition: all 0.1s ease-out;
+}
+body {
+    margin: 0 0 0 0;
+    font-family: 'Roboto Mono', monospace;
+    color: var(--cmp);
+    transition: all 0.1s ease-out;
+}

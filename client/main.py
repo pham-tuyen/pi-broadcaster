@@ -1,16 +1,28 @@
-import eel, paramiko
+import eel, threading, os, eel.browsers, time, sys
 
-ssh = paramiko.SSHClient()
-ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh.connect("192.168.2.100", username="root", password="123456")
+eel.init("src")
+eel.browsers.set_path('electron', 'node_modules/electron/dist/electron')
 
-eel.init("public")
+def close_callback(route, websockets):
+    if not websockets:
+        os.system("taskkill /im node.exe /F")
+        sys.exit()
 
-@eel.expose
-def send():
-    pass
+def start():
+    time.sleep(3)
+    eel.start('app.html', mode='electron', close_callback=close_callback)
 
-eel.start("index.html", mode='electron')
+def back():
+    os.system("net stop winnat")
+    os.system("net start winnat")
+    os.system("npm run preview")
+
+electron = threading.Thread(target=start, args=())
+vite = threading.Thread(target=back, args=())
+vite.start()
+electron.start()
+vite.join()
+electron.join()
 
 
 

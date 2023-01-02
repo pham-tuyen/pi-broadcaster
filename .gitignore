@@ -316,3 +316,6 @@ package
 
 .config
 doan/
+clear
+.git/*
+cache

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Average+Sans" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Security-Policy" content="default-src https://fonts.googleapis.com https://fonts.gstatic.com 'unsafe-inline' 'self'; script-src 'unsafe-inline' 'self'">
+        <style>
+            :root {
+                --size: 500px;
+            }
+            @font-face {
+                font-family: 'Product Sans';
+                src: url("psans.otf");
+            }
+            body {
+                aspect-ratio: 16 / 9;
+                width: var(--size);
+                margin: 0;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            html {
+                aspect-ratio: 16 / 9;
+                width: var(--size);
+                margin: 0;
+                background-image: url("splash.jpg");
+                background-size: 100% 100%;
+                font-family: 'Product Sans', sans-serif;
+                background-repeat: no-repeat;
+            }
+            span {
+                color: #ffffff;
+            }
+            .splashW {
+                display: flex;
+                align-items: flex-end;
+            }
+            .name {
+                line-height: 48px;
+                font-size: 32px;
+                margin: 0 0 0px 6px;
+            }
+            .vtitle {
+                line-height: 32px;
+                font-size: 12px;
+                margin: 0 0 0px 4px;
+                color: #AAAAAA;
+            }
+            .spinner {
+                margin: 0 0 0 auto;
+                display: flex;
+                align-items: flex-start;
+            }
+            .sp_ani {
+                aspect-ratio: 1 / 1;
+                height: 28px;
+                margin: 4px 4px 0 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="splashW">
+            <span class="name">Bảng điều khiển</span>
+            <span class="vtitle">1.0.0</span>
+        </div>
+        <div class="spinner">
+            <img src="spinner.svg" alt="loading circle" class="sp_ani">
+        </div>
+    </body>
+</html>
