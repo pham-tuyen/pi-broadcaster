@@ -9,7 +9,7 @@ def close_callback(route, websockets):
         sys.exit()
 
 def start():
-    time.sleep(3)
+    time.sleep(3) 
     eel.start('app.html', mode='electron', close_callback=close_callback)
 
 def back():
