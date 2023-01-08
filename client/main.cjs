@@ -1,5 +1,12 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
+const waitPort = require('wait-port');
+const { exec } = require('child_process');
+
+const params = {
+    host: 'localhost',
+    port: 4173,
+};
 
 const createWindow = () => {
     var splash = new BrowserWindow({ 
@@ -19,7 +26,14 @@ const createWindow = () => {
             autoHideMenuBar: true,
             show: false
         })
-        window.loadURL("http://localhost:4173")
+
+        waitPort(params)
+            .then(({open}) => {
+                if(open) window.loadURL("http://localhost:4173")
+            })
+            .catch((err) => {
+                console.err(`An unknown error occured while waiting for the port: ${err}`);
+            });
         
         window.center();
         window.show();
@@ -37,5 +51,26 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', () => {
+    exec('npx kill-port 8000', (err, stdout, stderr) => {
+        if (err) {
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+      });
+      exec('npx kill-port 4173', (err, stdout, stderr) => {
+        if (err) {
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+      });
+      exec('taskkill /im python.exe /F || taskkill /im node.exe /F', (err, stdout, stderr) => {
+        if (err) {
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+      });
     if(process.platform !== 'darwin') app.quit()
 })

@@ -1,16 +1,10 @@
-import eel, threading, os, eel.browsers, time, sys
+import eel, threading, os, eel.browsers
 
 eel.init("src")
 eel.browsers.set_path('electron', 'node_modules/electron/dist/electron')
 
-def close_callback(route, websockets):
-    if not websockets:
-        os.system("taskkill /im node.exe /F")
-        sys.exit()
-
 def start():
-    time.sleep(3) 
-    eel.start('app.html', mode='electron', close_callback=close_callback)
+    eel.start('app.html', mode='electron')
 
 def back():
     os.system("net stop winnat")
