@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
     let lang:string = "vi";
-    let ifPlaying:boolean = false; // use this variable to set play mode in rpi 
     let ifDark:boolean = false;
     onMount(() => {
         localStorage.setItem('lang', lang);
@@ -24,9 +23,6 @@
     function guiControl() {
         ifDark = !ifDark;
         ifDark ? document.documentElement.setAttribute('theme', 'dark') : document.documentElement.setAttribute('theme', 'light');
-    }
-    function audioControl() {
-        ifPlaying = !ifPlaying;
     }
 </script>
 
@@ -84,8 +80,7 @@ button {
 
 <div class="navBar">
     <div class="items">
-        <a href="/"><button><span class="material-symbols-rounded">queue_music</span></button></a>
-        <a href="/console"><button><span class="material-symbols-rounded">terminal</span></button></a>
+        <a href="/"><button><span class="material-symbols-rounded">save</span></button></a>
         <div class="end">
             <button on:click={languageCtl}><span class="material-symbols-rounded">language</span></button>
         {#if !ifDark}    
@@ -93,7 +88,6 @@ button {
         {:else}
             <button on:click={guiControl}><span class="material-symbols-rounded">light_mode</span></button>
         {/if}
-        <button><span class="material-symbols-rounded">settings</span></button>
         </div>
     </div>
 </div>

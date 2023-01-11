@@ -33,6 +33,8 @@ while True:
                 os.chdir("..")
                 if datetime.now().hour * 3600 + datetime.now().minute * 60 + datetime.now().second >= config[index]["time"] * 3600:
                     break
-
+                
+                
+        
 
       

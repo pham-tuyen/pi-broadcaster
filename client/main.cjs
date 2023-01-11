@@ -2,10 +2,11 @@ const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const waitPort = require('wait-port');
 const { exec } = require('child_process');
+const sp = require('synchronized-promise')
 
 const params = {
     host: 'localhost',
-    port: 4173,
+    port: 5173,
 };
 
 const createWindow = () => {
@@ -14,13 +15,14 @@ const createWindow = () => {
         height: 300, 
         transparent: true, 
         frame: false, 
-        alwaysOnTop: true 
+        alwaysOnTop: true,
+        skipTaskbar: true
     });
     
-    splash.loadURL(path.join(__dirname, "/splash/splash.html"));
+    splash.loadFile(path.join(__dirname, "/splash/splash.html"));
     splash.center();
     setTimeout(function () {
-        splash.close();
+        splash.close()
 
         const window = new BrowserWindow({
             autoHideMenuBar: true,
@@ -29,7 +31,7 @@ const createWindow = () => {
 
         waitPort(params)
             .then(({open}) => {
-                if(open) window.loadURL("http://localhost:4173")
+                if(open) window.loadURL("http://localhost:5173")
             })
             .catch((err) => {
                 console.err(`An unknown error occured while waiting for the port: ${err}`);
@@ -58,7 +60,7 @@ app.on('window-all-closed', () => {
         console.log(`stdout: ${stdout}`);
         console.log(`stderr: ${stderr}`);
       });
-      exec('npx kill-port 4173', (err, stdout, stderr) => {
+      exec('npx kill-port 5173', (err, stdout, stderr) => {
         if (err) {
           return;
         }

@@ -11,7 +11,10 @@ index_temp = cache.readlines()
 cache.close()
 if index_temp == []:
     fcache = open("cache", "w")
-    fcache.write("0\n0\n0\n0")
+    str = ""
+    for i in range(0, 4):
+        str += "0\n"
+    f.write(str)
     fcache.close()
 cache = open("cache", "r")
 index_temp = cache.readlines()
